@@ -1,27 +1,30 @@
 from selenium.webdriver.common.by import By
 from .base_page import BasePage
-from elements.div import Div
+from elements.p import P
+from elements.multiweb_element import MultiWebElement
 
 
 class InfinityScroll(BasePage):
-    url = 'http://the-internet.herokuapp.com/infinite_scroll'
-    COUNT = 23
     PARAGRAPH_LOC = (By.XPATH, "//*[@class='jscroll-added']")
-    paragraphs_list = []
     UNIQUE_ELEMENT_LOC = (By.XPATH, "//*[contains(text(), 'Infinite Scroll')]")
 
     def __init__(self, browser):
         super().__init__(browser)
         self.page_name = 'Infinite scroll'
-        self.paragraphs = Div(self.driver, self.PARAGRAPH_LOC, description='Main page -> Paragraph')
+        self.unique_element = P(browser.driver, self.UNIQUE_ELEMENT_LOC,
+                                description='Main page -> "Infinite Scroll" text')
+        self.multi_paragraphs = MultiWebElement(browser.driver,
+                                                lambda x: (By.XPATH, f"(//*[@class='jscroll-added'])[{x}]"),
+                                                description='Main page -> Paragraph')
 
-    def is_page_opened(self):
+    def count_paragraphs(self, browser, age):
         super().wait_for_open()
-        return True
-
-    def count_paragraphs(self, browser):
+        elements = []
         while True:
-            elements = self.paragraphs.presence_of_all_elements()
-            if len(elements) >= self.COUNT:
-                return True
-            browser.scroll_to_bottom()
+            try:
+                elements.append(next(self.multi_paragraphs))
+
+            except StopIteration:
+                if len(elements) >= age:
+                    return True
+                browser.scroll_to_bottom()

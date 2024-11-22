@@ -13,15 +13,13 @@ class NestedFramesPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser)
-        self.child = IFrame(self.driver, self.CHILD_FRAME_LOC, description='Child IFrame element')
-        self.parent = IFrame(self.driver, self.PARENT_FRAME_LOC, description='Parent IFrame element')
-        self.section = Li(self.driver, self.FRAMES_SECTION_LOC, description='Frames section')
-
-    def is_page_opened(self):
-        super().wait_for_open()
-        return True
+        self.child = IFrame(browser.driver, self.CHILD_FRAME_LOC, description='Child IFrame element')
+        self.parent = IFrame(browser.driver, self.PARENT_FRAME_LOC, description='Parent IFrame element')
+        self.section = Li(browser.driver, self.FRAMES_SECTION_LOC, description='Frames section')
+        self.unique_element = Li(browser.driver, self.UNIQUE_ELEMENT_LOC, description='Main page -> Unique element')
 
     def presence_of_parent_iframe_element(self):
+        super().wait_for_open()
         self.parent.presence_of_element()
         return True
 
@@ -30,5 +28,5 @@ class NestedFramesPage(BasePage):
         return True
 
     def click_on_section(self):
-        self.section.presence_of_element()
-        self.section.click()
+        element = self.section.presence_of_element()
+        self.section.click(element)

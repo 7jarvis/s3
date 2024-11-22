@@ -12,17 +12,16 @@ class IFramePage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser)
-        self.nested = Li(self.driver, self.NESTED_FRAMES_LOC, description='Opened section -> Choose page')
-        self.section = Span(self.driver, self.ALERTS_SECTION_LOC, description='Main page -> Open section')
+        self.nested = Li(browser.driver, self.NESTED_FRAMES_LOC, description='Opened section -> Choose page')
+        self.section = Span(browser.driver, self.ALERTS_SECTION_LOC, description='Main page -> Open section')
+        self.unique_element = Li(browser.driver, self.UNIQUE_ELEMENT_LOC, description='Main page -> Unique element')
 
-    def is_page_opened(self):
-        super().wait_for_open()
-        return True
 
     def click_on_section(self):
-        self.section.presence_of_element()
-        self.section.click()
+        super().wait_for_open()
+        element = self.section.presence_of_element()
+        self.section.click(element)
 
     def click_on_page(self):
-        self.nested.visibility_of_element()
-        self.nested.click()
+        element = self.nested.visibility_of_element()
+        self.nested.click(element)

@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
-from elements.a import a
-
+from elements.p import P
 from .base_page import BasePage
 
 
@@ -9,15 +8,9 @@ class NewWindowPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser)
+        self.unique_element = P(browser.driver, self.UNIQUE_ELEMENT_LOC, description='Main page ->"New window text"')
         self.page_name = "New window"
 
-    def is_page_opened(self):
-        super().wait_for_open()
-        return True
-
-    def save_current_window(self):
-        current_window = self.driver.current_window_handle
-        return current_window
-
     def get_title(self):
-        return super().get_title()
+        super().wait_for_open()
+        return self.browser.get_title()

@@ -1,0 +1,15 @@
+config:
+  test1_url: "http://admin:admin@the-internet.herokuapp.com/basic_auth"
+  TIMEOUT : 10
+  AGE : 23
+  test2_url: "https://the-internet.herokuapp.com/javascript_alerts"
+  test4_url: "https://the-internet.herokuapp.com/context_menu"
+  test5_url: 'https://the-internet.herokuapp.com/horizontal_slider'
+  test6_url: 'https://the-internet.herokuapp.com/hovers'
+  test7_url: 'http://the-internet.herokuapp.com/windows'
+  test8_url: 'https://demoqa.com'
+  test10_url : 'http://the-internet.herokuapp.com/dynamic_content'
+  test11_url: 'http://the-internet.herokuapp.com/infinite_scroll'
+  test12_url: 'http://the-internet.herokuapp.com/upload'
+  test_12_file_name: 'test.txt'
+
