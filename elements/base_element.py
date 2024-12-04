@@ -70,8 +70,8 @@ class BaseElement:
         actions.context_click(element).perform()
 
     def get_attribute(self, attribute_name):
-        logging.info(f"Retreive attribute '{attribute_name}' of element {self.element}.")
-        attribute_value = self.element.get_attribute(attribute_name)
+        logging.info(f"Retreive attribute '{attribute_name}' of element.")
+        attribute_value = self.presence_of_element().get_attribute(attribute_name)
         return attribute_value
 
     def get_text(self):

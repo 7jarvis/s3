@@ -25,7 +25,7 @@ class InfinityScroll(BasePage):
         while len(elements) != age:
             for paragraph in self.multi_paragraphs:
                 elements.append(paragraph)
-                if len(elements) >= age:
+                if len(elements) == age:
                     return True
             browser.execute_script("arguments[0].scrollIntoView({block: 'center'});",
                                    paragraph.presence_of_element())

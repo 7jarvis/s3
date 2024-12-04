@@ -27,7 +27,6 @@ class SliderPage(BasePage):
         actions.move_to_element(slider).click().perform()
 
     def get_range_num(self):
-        range_num = self.value.presence_of_element()
-        text_value = range_num.text
+        text_value = self.value.get_text()
         num_value = float(text_value)
         return num_value

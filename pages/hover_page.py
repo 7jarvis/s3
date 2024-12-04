@@ -1,4 +1,3 @@
-import logging
 from .base_page import BasePage
 from selenium.webdriver.common.by import By
 from elements.web_element import WebElement
@@ -40,12 +39,12 @@ class HoverPage(BasePage):
 
     def check_username(self):
         username = next(self.multi_username)
-        text_value = username.presence_of_element().text
+        text_value = username.get_text()
         return text_value
 
     def get_link(self):
         link = next(self.multi_link_element)
-        link_text = link.presence_of_element().get_attribute("href")
+        link_text = link.get_attribute("href")
         return link_text
 
     def get_expected_text(self, n):
