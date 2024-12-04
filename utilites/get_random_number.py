@@ -1,9 +1,6 @@
 import random
 
-START_VALUE_FOR_SLIDER = 1
-STOP_VALUE_FOR_SLIDER = 9
 
-
-def get_random_num():
-    n = random.randrange(START_VALUE_FOR_SLIDER, STOP_VALUE_FOR_SLIDER)
+def get_random_num(start_value, end_value):
+    n = random.randrange(start_value, end_value)
     return n

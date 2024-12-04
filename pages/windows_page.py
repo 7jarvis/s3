@@ -4,15 +4,15 @@ from elements.p import P
 
 
 class WindowsPage(BasePage):
-    url = 'http://the-internet.herokuapp.com/windows'
     UNIQUE_ELEMENT_LOC = (By.XPATH, "//*[contains(text(), 'Click')]")
+    CLICK_TEXT_LOC = (By.XPATH, "//*[contains(text(), 'Click')]")
 
     def __init__(self, browser):
         super().__init__(browser)
         self.page_name = "Windows page"
-        self.unique_element = P(browser.driver, self.UNIQUE_ELEMENT_LOC, description="Main Page -> Click on 'Click here'")
+        self.unique_element = P(browser.driver, self.UNIQUE_ELEMENT_LOC, description="Main Page -> 'Click here' text")
+        self.click_element = P(browser.driver, self.CLICK_TEXT_LOC, description="Main Page -> Click on 'Click here'")
 
     def click(self):
-        element = self.unique_element.presence_of_element()
         super().wait_for_open()
-        self.unique_element.click(element)
+        self.click_element.click()

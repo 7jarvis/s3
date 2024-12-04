@@ -17,14 +17,16 @@ class InfinityScroll(BasePage):
                                                 lambda x: (By.XPATH, f"(//*[@class='jscroll-added'])[{x}]"),
                                                 description='Main page -> Paragraph')
 
-    def count_paragraphs(self, browser, age):
+    def wait_for_open(self):
         super().wait_for_open()
-        elements = []
-        while True:
-            try:
-                elements.append(next(self.multi_paragraphs))
 
-            except StopIteration:
+    def count_paragraphs(self, browser, age):
+        elements = []
+        while len(elements) != age:
+            for paragraph in self.multi_paragraphs:
+                elements.append(paragraph)
                 if len(elements) >= age:
                     return True
-                browser.scroll_to_bottom()
+            browser.execute_script("arguments[0].scrollIntoView({block: 'center'});",
+                                   paragraph.presence_of_element())
+        return True

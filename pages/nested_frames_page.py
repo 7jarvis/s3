@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from elements.iframe import IFrame
-from elements.li import Li
+from elements.web_element import WebElement
 
 from .base_page import BasePage
 
@@ -15,11 +15,14 @@ class NestedFramesPage(BasePage):
         super().__init__(browser)
         self.child = IFrame(browser.driver, self.CHILD_FRAME_LOC, description='Child IFrame element')
         self.parent = IFrame(browser.driver, self.PARENT_FRAME_LOC, description='Parent IFrame element')
-        self.section = Li(browser.driver, self.FRAMES_SECTION_LOC, description='Frames section')
-        self.unique_element = Li(browser.driver, self.UNIQUE_ELEMENT_LOC, description='Main page -> Unique element')
+        self.section = WebElement(browser.driver, self.FRAMES_SECTION_LOC, description='Frames section')
+        self.unique_element = WebElement(browser.driver, self.UNIQUE_ELEMENT_LOC,
+                                         description='Main page -> Unique element')
+
+    def wait_for_open(self):
+        super().wait_for_open()
 
     def presence_of_parent_iframe_element(self):
-        super().wait_for_open()
         self.parent.presence_of_element()
         return True
 
@@ -28,5 +31,4 @@ class NestedFramesPage(BasePage):
         return True
 
     def click_on_section(self):
-        element = self.section.presence_of_element()
-        self.section.click(element)
+        self.section.click()

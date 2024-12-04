@@ -4,7 +4,8 @@ from utilites.generate_text import get_random_text
 
 def test_alert(browser, config):
     alert = AlertPage(browser)
-    browser.driver.get(config.return_value("test2_url"))
+    browser.get(config.return_value("test2_url"))
+    alert.wait_for_open()
     assert alert.alert_click() == 'I am a JS Alert', 'Expected result: "I am a JS alert" text is displayed \n Actual result: Text is not displayed'
     assert browser.close_alert(
     ), 'Expected result: "You successfully clicked an Alert text is displayed"\n Actual result: Text is not displayed'
