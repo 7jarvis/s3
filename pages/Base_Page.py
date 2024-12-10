@@ -1,5 +1,5 @@
 import logging
-
+#wrote this comment to add to git
 
 class BasePage:
     UNIQUE_ELEMENT_LOC = None
