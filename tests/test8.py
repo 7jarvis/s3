@@ -4,19 +4,19 @@ from pages.frames_page import FramesPage
 
 
 def test_iframe(browser, config):
+    browser.get(config.get_value("test8_url"))
     iframe = IFramePage(browser)
-    nestedFrame = NestedFramesPage(browser)
-    frame = FramesPage(browser)
-    browser.get(config.return_value("test8_url"))
     iframe.wait_for_open()
     iframe.click_on_section()
     iframe.click_on_page()
+    nestedFrame = NestedFramesPage(browser)
     nestedFrame.wait_for_open()
-    assert nestedFrame.presence_of_parent_iframe_element(), "Expected result: Parent IFrame elemenet is present\n Actual result: Parent IFrame element isn`t present"
+    nestedFrame.presence_of_parent_iframe_element()
     browser.switch_to_iframe(nestedFrame.parent)
-    assert nestedFrame.presence_of_child_iframe_element(), "Expected result: Child IFrame elemenet is present\n Actual result: Child IFrame element isn`t present"
+    nestedFrame.presence_of_child_iframe_element()
     browser.switch_to_default()
     nestedFrame.click_on_section()
+    frame = FramesPage(browser)
     frame.wait_for_open()
     browser.switch_to_iframe(frame.big)
     text1 = frame.get_iframe_text()

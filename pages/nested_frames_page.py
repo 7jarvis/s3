@@ -19,16 +19,12 @@ class NestedFramesPage(BasePage):
         self.unique_element = WebElement(browser.driver, self.UNIQUE_ELEMENT_LOC,
                                          description='Main page -> Unique element')
 
-    def wait_for_open(self):
-        super().wait_for_open()
-
     def presence_of_parent_iframe_element(self):
         self.parent.presence_of_element()
         return True
 
     def presence_of_child_iframe_element(self):
         self.child.presence_of_element()
-        return True
 
     def click_on_section(self):
         self.section.click()

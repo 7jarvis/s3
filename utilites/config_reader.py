@@ -12,5 +12,5 @@ class ConfigReader:
         with open(self.CONFIG_FILE_PATH, "r") as f:
             return yaml.safe_load(f)["config"]
 
-    def return_value(self, key):
+    def get_value(self, key):
         return self.config.get(key)

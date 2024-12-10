@@ -1,9 +1,15 @@
 from pages.dynamic_content_page import DynamicContent
+import pytest
 
 
-def test_dynamic_content(browser, config):
+@pytest.mark.parametrize(
+    "num_of_images, num_of_same_images_needed",
+    [(3, 2)]
+
+)
+def test_dynamic_content(browser, config, num_of_images, num_of_same_images_needed):
+    browser.get(config.get_value("test10_url"))
     dynamic = DynamicContent(browser)
-    browser.get(config.return_value("test10_url"))
     dynamic.wait_for_open()
-    while dynamic.compare_images(3) > 2:
+    while len(set(dynamic.compare_images(num_of_images))) > num_of_same_images_needed:
         browser.refresh()

@@ -2,7 +2,7 @@ from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 from elements.button import Button
 import logging
-from elements.p import P
+from elements.web_element import WebElement
 
 
 class AlertPage(BasePage):
@@ -18,15 +18,20 @@ class AlertPage(BasePage):
         self.confirm_button = Button(browser.driver, self.JS_CONFIRM_LOC,
                                      description="Main Page -> Click for JS Confirm")
         self.prompt_button = Button(browser.driver, self.JS_PROMPT_LOC, description="Main Page -> Click for JS Prompt")
-        self.unique_element = P(browser.driver, self.UNIQUE_ELEMENT_LOC, description="Main Page -> Unique Text")
+        self.unique_element = WebElement(browser.driver, self.UNIQUE_ELEMENT_LOC,
+                                         description="Main Page -> Unique Text")
+        self.result_text = WebElement(browser.driver, self.RESULT_LOC, description='Main Page -> Result text')
         self.page_name = "Alert test page"
 
-    def wait_for_open(self):
-        super().wait_for_open()
+    def get_result_text(self):
+        text = self.result_text.get_text()
+        return text
 
-    def alert_click(self):
+    def click_on_alert(self):
         logging.info("Click alert")
         self.alert_button.click()
+
+    def get_alert_text(self):
         text = self.browser.get_alert_text()
         return text
 

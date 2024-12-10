@@ -9,11 +9,12 @@ from utilites.config_reader import ConfigReader
 
 class Browser:
     cfg = ConfigReader()
-    ALERT_TIMEOUT = cfg.return_value("TIMEOUT")
+    ALERT_TIMEOUT = cfg.get_value("TIMEOUT")
 
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, self.ALERT_TIMEOUT)
+        self.action_chains = ActionChains(driver)
 
     def get(self, url):
         logging.info(f"Navigating to: {url}")
@@ -24,6 +25,7 @@ class Browser:
         self.driver.quit()
 
     def execute_script(self, script, *args):
+        logging.info(f"Excecute script: {script}")
         return self.driver.execute_script(script, *args)
 
     def close(self):
@@ -43,17 +45,12 @@ class Browser:
         current_url = self.driver.current_url
         return current_url
 
-    def check_link(self, expected_text):
+    def check_link_and_return(self, expected_text):
         if expected_text in self.get_current_url():
             self.go_back()
             return True
+        self.go_back()
         return False
-
-    def get_text(self, element):
-        return element.text
-
-    def action_chains(self):
-        return ActionChains(self.driver)
 
     def scroll_to_bottom(self):
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -80,8 +77,8 @@ class Browser:
         self.switch_to_main_window(main_window)
 
     def switch_to_main_window(self, main_window):
-        self.driver.switch_to.window(main_window)
         logging.info("Switched back to the main window.")
+        self.driver.switch_to.window(main_window)
 
     def switch_to_iframe(self, iframe):
         iframe_element = iframe.presence_of_element()
@@ -104,12 +101,15 @@ class Browser:
         alert_text = alert.text
         return alert_text
 
-    def close_alert(self):
+    def wait_for_alert_to_be_present(self):
+        logging.info("Wait for alert to be present")
         self.wait.until(ec.alert_is_present())
+
+    def close_alert(self):
+        self.wait_for_alert_to_be_present()
         alert = Alert(self.driver)
         logging.info("Close alert.")
         alert.accept()
-        return True
 
     def is_alert_closed(self):
         logging.info("Check if alert was closed")

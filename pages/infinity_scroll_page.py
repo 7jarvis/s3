@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from .base_page import BasePage
-from elements.p import P
+from elements.web_element import WebElement
 from elements.multiweb_element import MultiWebElement
 
 
@@ -11,14 +11,11 @@ class InfinityScroll(BasePage):
     def __init__(self, browser):
         super().__init__(browser)
         self.page_name = 'Infinite scroll'
-        self.unique_element = P(browser.driver, self.UNIQUE_ELEMENT_LOC,
-                                description='Main page -> "Infinite Scroll" text')
+        self.unique_element = WebElement(browser.driver, self.UNIQUE_ELEMENT_LOC,
+                                         description='Main page -> "Infinite Scroll" text')
         self.multi_paragraphs = MultiWebElement(browser.driver,
                                                 lambda x: (By.XPATH, f"(//*[@class='jscroll-added'])[{x}]"),
                                                 description='Main page -> Paragraph')
-
-    def wait_for_open(self):
-        super().wait_for_open()
 
     def count_paragraphs(self, browser, age):
         elements = []
@@ -27,6 +24,6 @@ class InfinityScroll(BasePage):
                 elements.append(paragraph)
                 if len(elements) == age:
                     return True
-            browser.execute_script("arguments[0].scrollIntoView({block: 'center'});",
-                                   paragraph.presence_of_element())
+            browser.scroll_to_bottom()
+
         return True

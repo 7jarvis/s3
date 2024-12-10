@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from elements.p import P
+from elements.web_element import WebElement
 from .base_page import BasePage
 from elements.iframe import IFrame
 
@@ -12,13 +12,11 @@ class FramesPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser)
-        self.text = P(browser.driver, self.TEXT_LOC, description='Text inside of IFrame')
+        self.text = WebElement(browser.driver, self.TEXT_LOC, description='Text inside of IFrame')
         self.big = IFrame(browser.driver, self.BIG_IFRAME_LOC, description='Big IFrame')
         self.small = IFrame(browser.driver, self.SMALL_IFRAME_LOC, description='Small IFrame')
-        self.unique_element = P(browser.driver, self.UNIQUE_ELEMENT_LOC, description='Main page -> Unique element')
-
-    def wait_for_open(self):
-        super().wait_for_open()
+        self.unique_element = WebElement(browser.driver, self.UNIQUE_ELEMENT_LOC,
+                                         description='Main page -> Unique element')
 
     def get_iframe_text(self):
         text = self.text.get_text()

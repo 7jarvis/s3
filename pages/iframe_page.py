@@ -15,9 +15,6 @@ class IFramePage(BasePage):
         self.unique_element = WebElement(browser.driver, self.UNIQUE_ELEMENT_LOC,
                                          description='Main page -> Unique element')
 
-    def wait_for_open(self):
-        super().wait_for_open()
-
     def click_on_section(self):
         self.section.click()
 
