@@ -15,7 +15,7 @@ def test_alert(browser, config):
     browser.close_alert()
     assert browser.is_alert_closed(), 'Expected result: Alert was closed \n Actual result: Alert wasn`t closed'
     assert alert.prompt_click() == 'I am a JS prompt', f'Expected result: JS prompt windows is opened \n Actual result: JS prompt windows was not opened'
-    text = RandomUtils.get_random_text()
-    alert.send_text(text)
+    text = RandomUtils.random_text
+    browser.send_alert_text(text)
     browser.close_alert()
-    assert alert.get_result_text() == f'You entered: {text}', f'Expected result: "{text}" text is displayed \n Actual result: {alert.get_alert_text()} is displayed'
+    assert alert.get_result_text() == f'You entered: {text.replace("\n", " ")}', f'Expected result: "{text}" text is displayed \n Actual result: {alert.get_alert_text()} is displayed'

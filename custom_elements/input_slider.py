@@ -5,10 +5,6 @@ from elements.input import Input
 
 class SliderElement(Input):
 
-    def send_keys(self, credentials):
-        logging.info(f"Send {credentials}")
-        self.element.send_keys(credentials)
-
     def move_slider(self, target_value, current_value, step):
         actions = ActionChains(self.driver)
         if target_value < current_value:

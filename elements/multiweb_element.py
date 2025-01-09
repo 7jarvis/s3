@@ -68,3 +68,9 @@ class MultiWebElement:
 
     def __repr__(self) -> str:
         return str(self)
+
+    def get_all_values(self):
+        iterator = self.__iter__()
+        #todo condition to check all elements
+        element = next(iterator)
+

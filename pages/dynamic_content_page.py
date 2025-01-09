@@ -18,7 +18,7 @@ class DynamicContent(BasePage):
                                            lambda x: (By.XPATH, f"(//img[contains(@src,'avatars')])[{x}]"),
                                            description='Main page -> Images on the page')
 
-    def parse_element_html(self, num_of_elems):
+    def _parse_element_html(self, num_of_elems):
         attributes = []
         for i in range(num_of_elems):
             for image in self.multi_image:
@@ -27,5 +27,5 @@ class DynamicContent(BasePage):
             return attributes
 
     def compare_images(self, num_of_elems):
-        images = self.parse_element_html(num_of_elems)
+        images = self._parse_element_html(num_of_elems)
         return images

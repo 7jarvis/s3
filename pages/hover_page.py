@@ -28,18 +28,25 @@ class HoverPage(BasePage):
                                                   lambda x: (By.XPATH, f"(//*[contains(text(), 'View')])[{x}]"),
                                                   description="Main Page -> View profile")
 
-    def select_user(self):
-        image = next(self.multi_image)
-        image_element = image.presence_of_element()
+    def select_user(self, current_elem):
+        images = []
+        for element in self.multi_image:
+            images.append(element.presence_of_element())
+        
         actions = ActionChains(self.browser.driver)
-        actions.move_to_element(image_element).perform()
+        actions.move_to_element(images[current_elem]).perform()
 
     def check_username(self):
-        username = next(self.multi_username)
-        text_value = username.get_text()
-        return text_value
+        usernames = []
+        for element in self.multi_username:
+            text_value = element.get_text()
+            usernames.append(text_value)
+
+        return usernames
 
     def get_link(self):
-        link = next(self.multi_link_element)
-        link_text = link.get_attribute("href")
-        return link_text
+        links = []
+        for element in self.multi_link_element:
+            link_text = element.get_attribute("href")
+            links.append(link_text)
+        return links

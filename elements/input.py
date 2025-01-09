@@ -7,3 +7,4 @@ class Input(BaseElement):
         logging.info(f"Send {credentials} to {self.description}")
         element = self.presence_of_element()
         element.send_keys(credentials)
+        element.clear()

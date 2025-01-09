@@ -13,7 +13,7 @@ class BaseElement:
     def __init__(self, browser, locator, description=None, timeout=None):
         self.driver = browser
         self.action_chains = ActionChains(browser)
-        self.element = locator
+        self.locator = locator
         self.description = description
         self.timeout = self.TIMEOUT
         self.wait = WebDriverWait(self.driver, BaseElement.TIMEOUT)
@@ -22,7 +22,7 @@ class BaseElement:
         logging.info(f"Wait for element {self.description} to be present")
         wait_time = timeout or self.timeout
         element = WebDriverWait(self.driver, wait_time).until(
-            ec.presence_of_element_located(self.element)
+            ec.presence_of_element_located(self.locator)
         )
         return element
 
@@ -30,7 +30,7 @@ class BaseElement:
         logging.info(f"Wait for element {self.description} to be visible")
         wait_time = timeout or self.timeout
         element = WebDriverWait(self.driver, wait_time).until(
-            ec.visibility_of_element_located(self.element)
+            ec.visibility_of_element_located(self.locator)
         )
         return element
 
@@ -38,7 +38,7 @@ class BaseElement:
         logging.info(f"Wait for element {self.description} to be clickable")
         wait_time = timeout or self.timeout
         element = WebDriverWait(self.driver, wait_time).until(
-            ec.element_to_be_clickable(self.element)
+            ec.element_to_be_clickable(self.locator)
         )
         return element
 
@@ -58,7 +58,7 @@ class BaseElement:
     def js_click(self, timeout=None):
         wait_time = timeout or self.timeout
         web_element = WebDriverWait(self.driver, wait_time).until(
-            ec.presence_of_element_located(self.element)
+            ec.presence_of_element_located(self.locator)
         )
 
         logging.info(f"Click on the {self.description} using JavaScript")
@@ -67,7 +67,7 @@ class BaseElement:
     def context_click(self, timeout=None):
         wait_time = timeout or self.timeout
         element = WebDriverWait(self.driver, wait_time).until(
-            ec.element_to_be_clickable(self.element)
+            ec.element_to_be_clickable(self.locator)
         )
         logging.info(f"Perform right-click on the {self.description}")
 

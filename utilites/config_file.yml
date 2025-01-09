@@ -11,6 +11,6 @@ config:
   test10_url: 'http://the-internet.herokuapp.com/dynamic_content'
   test11_url: 'http://the-internet.herokuapp.com/infinite_scroll'
   test12_url: 'http://the-internet.herokuapp.com/upload'
-  test_12_file_path: '../data/test.txt'
-  test_13_file_path: '../data/test.txt'
+  test_12_file_path: 'data/test.txt'
+  test_13_file_path: 'data/test.txt'
 

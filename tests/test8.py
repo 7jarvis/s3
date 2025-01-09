@@ -18,9 +18,9 @@ def test_iframe(browser, config):
     nestedFrame.click_on_section()
     frame = FramesPage(browser)
     frame.wait_for_open()
-    browser.switch_to_iframe(frame.big)
+    browser.switch_to_iframe(frame.big_iframe)
     text1 = frame.get_iframe_text()
     browser.switch_to_default()
-    browser.switch_to_iframe(frame.small)
+    browser.switch_to_iframe(frame.small_iframe)
     text2 = frame.get_iframe_text()
     assert text1 == text2, f"Expected result: Texts inside the IFrames are equal: {text1} == {text2}\n Actual result: Texts inside the IFrames are not equal {text1} != {text2}"

@@ -54,6 +54,3 @@ class AlertPage(BasePage):
         self.prompt_button.js_click()
         text = self.browser.get_alert_text()
         return text
-
-    def send_text(self, text):
-        self.browser.send_alert_text(text)

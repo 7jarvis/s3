@@ -34,10 +34,6 @@ class UploadPage(BasePage):
         absolute_file_path = str(Path(file_path).resolve())
         return absolute_file_path
 
-    def get_file_input(self):
-        file_input = self.upload.presence_of_element()
-        return file_input
-
     def upload_file(self, file_path):
         self.upload.send_keys(file_path)
 
@@ -48,7 +44,7 @@ class UploadPage(BasePage):
     def wait_for_mark(self):
         self.mark.presence_of_element()
 
-    def get_text(self):
+    def get_uploaded_file_text(self):
         text = self.uploaded_file_name.get_text()
         return text
 

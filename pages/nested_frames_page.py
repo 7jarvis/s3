@@ -21,7 +21,6 @@ class NestedFramesPage(BasePage):
 
     def presence_of_parent_iframe_element(self):
         self.parent.presence_of_element()
-        return True
 
     def presence_of_child_iframe_element(self):
         self.child.presence_of_element()

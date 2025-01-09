@@ -12,5 +12,5 @@ def test_alert_js(browser, config):
     assert alert.confirm_js_click() == 'I am a JS Confirm', 'Expected result: "I am a JS Confirm" text is displayed \n Actual result: Text is not displayed'
     browser.close_alert()
     assert alert.prompt_js_click() == 'I am a JS prompt', 'Expected result: "I am a JS Prompt" text is displayed \n Actual result: Text is not displayed'
-    alert.send_text(RandomUtils.get_random_text())
+    browser.send_alert_text(RandomUtils.random_text )
     browser.close_alert()
